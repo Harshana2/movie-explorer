@@ -1,21 +1,30 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import MovieDetails from './pages/MovieDetails';
-import { CustomThemeProvider } from './components/ThemeContext'; // ✅ Import ThemeContext
+import { CustomThemeProvider, useThemeContext } from './components/ThemeContext';
+
+const AppContent = () => {
+  const [username, setUsername] = useState('Guest');
+  const { toggleColorMode } = useThemeContext();
+
+  return (
+    <Routes>
+      <Route path="/" element={<Login setUsername={setUsername} />} />
+      <Route path="/home" element={<Home username={username} toggleColorMode={toggleColorMode} />} />
+      <Route path="/movie/:movieId" element={<MovieDetails />} />
+    </Routes>
+  );
+};
 
 const App = () => {
   return (
-    <CustomThemeProvider> {/* ✅ Wrap app with ThemeProvider */}
+    <CustomThemeProvider>
       <Router>
         <CssBaseline />
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/movie/:movieId" element={<MovieDetails />} />
-        </Routes>
+        <AppContent />
       </Router>
     </CustomThemeProvider>
   );

@@ -9,20 +9,24 @@ import {
   Paper
 } from '@mui/material';
 
-const Login = () => {
-  const [username, setUsername] = useState('');
+interface LoginProps {
+  setUsername: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Login: React.FC<LoginProps> = ({ setUsername }) => {
+  const [usernameInput, setUsernameInput] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    if (!username || !password) {
+    if (!usernameInput || !password) {
       setError('Username and password are required.');
       return;
     }
 
-    // Save user login data to local storage (simple simulation)
-    localStorage.setItem('user', JSON.stringify({ username }));
+    localStorage.setItem('user', JSON.stringify({ username: usernameInput }));
+    setUsername(usernameInput); // ✅ Update parent state
     navigate('/home');
   };
 
@@ -35,8 +39,8 @@ const Login = () => {
         <Box display="flex" flexDirection="column" gap={2}>
           <TextField
             label="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={usernameInput}
+            onChange={(e) => setUsernameInput(e.target.value)}
             fullWidth
           />
           <TextField
