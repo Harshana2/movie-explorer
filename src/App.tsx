@@ -1,27 +1,23 @@
-// App.tsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import Login from './pages/Login';
-import Home from './pages/Home'; // Create this later
-// import PrivateRoute from './components/PrivateRoute'; // Create this later
+import Home from './pages/Home';
+import MovieDetails from './pages/MovieDetails';
+import { CustomThemeProvider } from './components/ThemeContext'; // ✅ Import ThemeContext
 
 const App = () => {
   return (
-    <Router>
-      <CssBaseline />
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route
-          path="/home"
-          element={
-           
-              <Home />
-            
-          }
-        />
-      </Routes>
-    </Router>
+    <CustomThemeProvider> {/* ✅ Wrap app with ThemeProvider */}
+      <Router>
+        <CssBaseline />
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/movie/:movieId" element={<MovieDetails />} />
+        </Routes>
+      </Router>
+    </CustomThemeProvider>
   );
 };
 
