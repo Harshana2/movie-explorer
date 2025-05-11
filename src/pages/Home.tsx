@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
-  Box,
+
   Container,
-  Button,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Typography,
-  Paper
+
 } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
-import LogoutIcon from '@mui/icons-material/Logout';
+
+
 import { useNavigate } from 'react-router-dom';
 
 import Header from '../components/Header';
@@ -34,7 +28,7 @@ const Home = ({ username, toggleColorMode }: { username: string; toggleColorMode
   const [selectedYear, setSelectedYear] = useState('');
   const [selectedRating, setSelectedRating] = useState('');
 
-  const theme = useTheme();
+
   const navigate = useNavigate();
 
   const fetchAllMovies = async () => {
