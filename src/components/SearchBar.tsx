@@ -7,21 +7,21 @@ interface Props {
   handleSearch: () => void;
   fetchTrendingMovies: () => void;
   showFavorites: () => void;
-  discoverAllMovies: () => void; // New prop for fetching all movies
+  discoverAllMovies: () => void; 
   isSearching: boolean;
   clearSearch: () => void;
 }
 
-const SearchBar: React.FC<Props> = ({
+const SearchBar = ({
   searchQuery,
   setSearchQuery,
   handleSearch,
   fetchTrendingMovies,
   showFavorites,
-  discoverAllMovies, // Handle fetching all movies
+  discoverAllMovies, 
   isSearching,
   clearSearch
-}) => (
+}: Props) => (
   <>
     <TextField
       label="Search Movies"

@@ -18,6 +18,7 @@ import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import MovieGrid from '../components/MovieGrid';
 import LoadMoreButton from '../components/LoadMoreButton';
+import FiltersSection from '../components/FilterSection';
 
 const Home = ({ username, toggleColorMode }: { username: string; toggleColorMode: () => void }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -170,7 +171,7 @@ const Home = ({ username, toggleColorMode }: { username: string; toggleColorMode
   };
 
   const handleLogout = () => {
-    window.location.href = '/'; // or implement proper logout logic
+    window.location.href = '/'; 
   };
 
   useEffect(() => {
@@ -179,10 +180,8 @@ const Home = ({ username, toggleColorMode }: { username: string; toggleColorMode
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
-      {/* Top bar with Logout */}
       
-
-      {/* Header */}
+     
       <Header
   username={username}
   toggleColorMode={toggleColorMode}
@@ -190,7 +189,7 @@ const Home = ({ username, toggleColorMode }: { username: string; toggleColorMode
 />
 
 
-      {/* Search and quick filters */}
+      
       <SearchBar
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
@@ -202,60 +201,16 @@ const Home = ({ username, toggleColorMode }: { username: string; toggleColorMode
         clearSearch={clearSearch}
       />
 
-      {/* Filter section in Paper */}
-      <Paper elevation={2} sx={{ p: 2, my: 3 }}>
-        <Box display="flex" flexWrap="wrap" gap={2} alignItems="center">
-          <FormControl sx={{ minWidth: 150 }} size="small">
-            <InputLabel>Genre</InputLabel>
-            <Select value={selectedGenre} label="Genre" onChange={(e) => setSelectedGenre(e.target.value)}>
-              <MenuItem value="">All</MenuItem>
-              <MenuItem value="28">Action</MenuItem>
-              <MenuItem value="35">Comedy</MenuItem>
-              <MenuItem value="18">Drama</MenuItem>
-              <MenuItem value="27">Horror</MenuItem>
-              <MenuItem value="10749">Romance</MenuItem>
-            </Select>
-          </FormControl>
+<FiltersSection
+  selectedGenre={selectedGenre}
+  setSelectedGenre={setSelectedGenre}
+  selectedYear={selectedYear}
+  setSelectedYear={setSelectedYear}
+  selectedRating={selectedRating}
+  setSelectedRating={setSelectedRating}
+/>
 
-          <FormControl sx={{ minWidth: 120 }} size="small">
-            <InputLabel>Year</InputLabel>
-            <Select value={selectedYear} label="Year" onChange={(e) => setSelectedYear(e.target.value)}>
-              <MenuItem value="">All</MenuItem>
-              {Array.from({ length: 25 }, (_, i) => {
-                const year = new Date().getFullYear() - i;
-                return <MenuItem key={year} value={year}>{year}</MenuItem>;
-              })}
-            </Select>
-          </FormControl>
-
-          <FormControl sx={{ minWidth: 150 }} size="small">
-            <InputLabel>Rating</InputLabel>
-            <Select value={selectedRating} label="Rating" onChange={(e) => setSelectedRating(e.target.value)}>
-              <MenuItem value="">All Ratings</MenuItem>
-              <MenuItem value="9">9+</MenuItem>
-              <MenuItem value="8">8+</MenuItem>
-              <MenuItem value="7">7+</MenuItem>
-              <MenuItem value="6">6+</MenuItem>
-              <MenuItem value="5">5+</MenuItem>
-            </Select>
-          </FormControl>
-
-          <Button
-            variant="outlined"
-            color="secondary"
-            size="small"
-            onClick={() => {
-              setSelectedGenre('');
-              setSelectedYear('');
-              setSelectedRating('');
-            }}
-          >
-            Clear Filters
-          </Button>
-        </Box>
-      </Paper>
-
-      {/* Movies */}
+      
       <MovieGrid
         movies={movies}
         onMovieClick={() => {}}
@@ -263,7 +218,7 @@ const Home = ({ username, toggleColorMode }: { username: string; toggleColorMode
         checkFavorite={checkFavorite}
       />
 
-      {/* Load more */}
+      
       <LoadMoreButton loading={loading} hasMore={hasMore} onLoadMore={fetchMoreMovies} />
     </Container>
   );

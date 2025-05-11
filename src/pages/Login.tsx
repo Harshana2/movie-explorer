@@ -50,7 +50,9 @@ const ErrorMessage = styled(Typography)(({ theme }) => ({
   marginTop: theme.spacing(1),
 }));
 
-const Login: React.FC<LoginProps> = ({ setUsername }) => {
+const Login = ({
+  setUsername,
+}: LoginProps) => {
   const [usernameInput, setUsernameInput] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
