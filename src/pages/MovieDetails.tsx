@@ -83,7 +83,7 @@ const MovieDetails = ({ username, toggleColorMode }: { username: string; toggleC
   }
 
   return (
-    <Container sx={{ marginTop: 2 }}>
+    <Container sx={{ marginTop: 3 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
         <IconButton onClick={() => navigate('/home')} sx={{ mr: 2 }}>
           <ArrowBackIcon />
