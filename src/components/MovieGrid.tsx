@@ -4,7 +4,7 @@ import MovieCard from './MovieCard';
 
 interface MovieGridProps {
   movies: any[];
-  onMovieClick: (movie: any) => void;
+  onMovieClick: (movieId: string) => void;  
   addToFavorites: (movie: any) => void;
   checkFavorite: (movie: any) => boolean;
 }
@@ -13,7 +13,7 @@ const MovieGrid = ({
   movies,
   onMovieClick,
   addToFavorites,
-  checkFavorite
+  checkFavorite,
 }: MovieGridProps) => {
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
@@ -21,7 +21,7 @@ const MovieGrid = ({
         <MovieCard
           key={movie.id}
           movie={movie}
-          onClick={() => onMovieClick(movie)}
+          onClick={() => onMovieClick(movie.id)}  
           isFavorite={checkFavorite(movie)}
           addToFavorites={() => addToFavorites(movie)}
         />

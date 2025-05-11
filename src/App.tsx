@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import Login from './pages/Login';
@@ -13,8 +13,14 @@ const AppContent = () => {
   return (
     <Routes>
       <Route path="/" element={<Login setUsername={setUsername} />} />
-      <Route path="/home" element={<Home username={username} toggleColorMode={toggleColorMode} />} />
-      <Route path="/movie/:movieId" element={<MovieDetails />} />
+      <Route
+        path="/home"
+        element={<Home username={username} toggleColorMode={toggleColorMode} />}
+      />
+      <Route
+        path="/movie/:movieId"
+        element={<MovieDetails username={username} toggleColorMode={toggleColorMode} />}
+      />
     </Routes>
   );
 };

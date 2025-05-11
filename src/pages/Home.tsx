@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useNavigate } from 'react-router-dom';
 
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
@@ -34,6 +35,7 @@ const Home = ({ username, toggleColorMode }: { username: string; toggleColorMode
   const [selectedRating, setSelectedRating] = useState('');
 
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const fetchAllMovies = async () => {
     try {
@@ -171,7 +173,11 @@ const Home = ({ username, toggleColorMode }: { username: string; toggleColorMode
   };
 
   const handleLogout = () => {
-    window.location.href = '/'; 
+    window.location.href = '/';
+  };
+
+  const handleMovieClick = (movieId: string) => {
+    navigate(`/movie/${movieId}`, { state: { username } });
   };
 
   useEffect(() => {
@@ -180,16 +186,7 @@ const Home = ({ username, toggleColorMode }: { username: string; toggleColorMode
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
-      
-     
-      <Header
-  username={username}
-  toggleColorMode={toggleColorMode}
-  handleLogout={handleLogout}
-/>
-
-
-      
+      <Header username={username} toggleColorMode={toggleColorMode} handleLogout={handleLogout} />
       <SearchBar
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
@@ -200,25 +197,20 @@ const Home = ({ username, toggleColorMode }: { username: string; toggleColorMode
         isSearching={isSearching}
         clearSearch={clearSearch}
       />
-
-<FiltersSection
-  selectedGenre={selectedGenre}
-  setSelectedGenre={setSelectedGenre}
-  selectedYear={selectedYear}
-  setSelectedYear={setSelectedYear}
-  selectedRating={selectedRating}
-  setSelectedRating={setSelectedRating}
-/>
-
-      
+      <FiltersSection
+        selectedGenre={selectedGenre}
+        setSelectedGenre={setSelectedGenre}
+        selectedYear={selectedYear}
+        setSelectedYear={setSelectedYear}
+        selectedRating={selectedRating}
+        setSelectedRating={setSelectedRating}
+      />
       <MovieGrid
         movies={movies}
-        onMovieClick={() => {}}
+        onMovieClick={handleMovieClick} 
         addToFavorites={addToFavorites}
         checkFavorite={checkFavorite}
       />
-
-      
       <LoadMoreButton loading={loading} hasMore={hasMore} onLoadMore={fetchMoreMovies} />
     </Container>
   );
